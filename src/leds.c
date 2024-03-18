@@ -40,6 +40,10 @@
  */
 #define LED_OFF 0
 
+/** @brief Estado inicial de un LED encendido.
+ */
+#define LED_ON 1
+
 /** @brief Estado para encender todos los LEDs.
  */
 #define LEDS_ON 0xFFFF
@@ -144,6 +148,19 @@ void leds_turn_on_all(void) {
  */
 void leds_turn_off_all(void) {
     *puntero = LEDS_OFF;
+}
+
+/**
+ * @brief Consultar el estado de un LED.
+ *
+ * @param led Número del LED a consultar (1-n).
+ * @return Estado del LED: 1 si está encendido, 0 si está apagado.
+ */
+int leds_status(int led) {
+    uint16_t mask = led_to_mask(led); // Crea la máscara para el LED específico.
+    return (*puntero & mask)
+               ? LED_ON
+               : LED_OFF; // Usa AND bit a bit para verificar si el LED está encendido.
 }
 
 /* === End of documentation ==================================================================== */

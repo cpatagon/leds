@@ -75,6 +75,11 @@ void leds_turn_on_all(void);
  */
 void leds_turn_off_all(void);
 
+/**
+ * @brief consultar el estado de un LEDs.
+ */
+int leds_status(int led);
+
 /* === End of documentation ==================================================================== */
 
 #ifdef __cplusplus

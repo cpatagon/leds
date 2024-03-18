@@ -60,6 +60,14 @@
  */
 #define LEDS_ON 0xFFFF
 
+/** @brief Estado inicial de un LED apagado.
+ */
+#define LED_OFF 0
+
+/** @brief Estado inicial de un LED encendido.
+ */
+#define LED_ON 1
+
 /* === Private data type declarations ========================================================== */
 
 static uint16_t leds_virtuales;
@@ -197,6 +205,39 @@ void test_apagar_todos_leds(void) {
 
     //  verificamos que todos los leds se enciendan
     TEST_ASSERT_EQUAL_UINT16(LEDS_OFF, leds_virtuales);
+}
+
+//  **Consulta del Estado de un LED**: Permite consultar el estado actual
+//                                    (encendido/apagado) de un LED específico.
+
+void test_esta_leds_encendido(void) {
+
+    // led 7 a prender
+    static int led_prueba = 7;
+
+    // apagamos todos los leds
+    leds_turn_off_all();
+
+    // prendemos el led 7
+    leds_turn_on(led_prueba);
+
+    //  verificamos que todos los leds se enciendan
+    TEST_ASSERT_EQUAL_UINT16(LED_ON, leds_status(led_prueba));
+}
+
+void test_esta_leds_apagado(void) {
+
+    // led 7 a prender
+    static int led_prueba = 7;
+
+    // apagamos todos los leds
+    leds_turn_on_all();
+
+    // prendemos el led 7
+    leds_turn_off(led_prueba);
+
+    //  verificamos que todos los leds se enciendan
+    TEST_ASSERT_EQUAL_UINT16(LED_OFF, leds_status(led_prueba));
 }
 
 /* === End of documentation ==================================================================== */
